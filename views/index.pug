@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .welcome-container
+    h1= page
+    p Welcome to the club 
+      span.get-outta-here (if you're a member)!
+  
+  p.sign-up-link
+    a(href="/sign-up") Click here
+    |  to sign up
