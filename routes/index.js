@@ -1,9 +1,3 @@
-var express = require("express");
-var router = express.Router();
-
-/* GET home page. */
-router.get("/", function (req, res) {
+exports.home = function (req, res) {
   res.render("index", { page: "Members Only" });
-});
-
-module.exports = router;
+};
