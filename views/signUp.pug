@@ -1,5 +1,23 @@
 extends layout 
 
 block content 
-  h1= page
-  p On the sign up page!
+  .sign-up-welcome-container
+    h1= page
+    p Sign up by filling in the form below.
+  
+  .sign-up-form-container
+    form.sign-up-form(action="", method="post") 
+      label(for="firstName") First Name
+      input#first-name(type="text", name="firstName") 
+      label(for="lastName") Last Name
+      input#last-name(type="text", name="lastName")
+      label(for="userName") Email
+      input#user-name(type="email", name="userName")
+      label(for="password") Password
+      input#password(type="password", name="password")
+      label(for="confirmPassword") Confirm Password
+      input#confirm-password(type="password", name="confirmPassword")
+      button.sign-in-submit(type="submit") Sign me up!
+  
+  .sign-up-footer 
+    a(href="/") Home 
