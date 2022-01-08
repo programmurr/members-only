@@ -20,22 +20,34 @@ body {
 }
 
 /* =================================== */
+/* NAVBAR */
+/* =================================== */
+.navbar {
+  margin-top: 3%;
+  grid-column: 2 / 5;
+  grid-row: 1 / 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.nav-header {
+  place-self: start center;
+}
+
+.nav-links {
+  grid-column: 3 / 4;
+  place-self: start stretch;
+  display: flex;
+  justify-content: space-between;
+}
+/* =================================== */
 /* HOME PAGE */
 /* =================================== */
 
-.welcome-container {
-  grid-column: 2 / 5;
-  grid-row: 2 / 3;
-  place-self: center;
-}
-
-.welcome-container > h1 {
-  text-align: center;
-}
-
-.sign-up-link {
+.no-messages {
   grid-column: 3 / 4;
-  grid-row: 3 / 4;
+  grid-row: 2 / 3;
   place-self: center;
 }
 
@@ -43,7 +55,8 @@ body {
 /* SIGN UP PAGE */
 /* =================================== */
 
-.sign-up-welcome-container {
+.sign-up-welcome-container,
+.log-in-header-container {
   grid-column: 2 / 5;
   grid-row: 1 / 2;
   place-self: stretch center;
@@ -53,12 +66,14 @@ body {
   justify-content: space-evenly;
 }
 
-.sign-up-form-container {
+.sign-up-form-container,
+.log-in-form-container {
   grid-column: 2 / 5;
   grid-row: 2 / 4;
 }
 
-.sign-up-form {
+.sign-up-form,
+.log-in-form {
   width: 100%;
   height: 100%;
   display: flex;
@@ -66,7 +81,8 @@ body {
   justify-content: space-evenly;
 }
 
-.sign-in-submit {
+.sign-in-submit,
+.log-in-submit {
   background: rgb(0, 132, 255);
   border: none;
   border-radius: 10px;
@@ -75,14 +91,20 @@ body {
   font-weight: 400;
 }
 
-.sign-in-submit:hover {
+.sign-in-submit:hover,
+.log-in-submit:hover {
   cursor: pointer;
   font-weight: 600;
 }
 
-.sign-up-footer {
+.sign-up-footer,
+.log-in-footer {
   grid-column: 2 / 5;
   grid-row: 4 / 5;
   justify-self: center;
   margin-top: 20px;
+}
+
+.error {
+  color: red;
 }

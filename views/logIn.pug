@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+  .log-in-header-container
+    h2= page
+  
+  .log-in-form-container
+    form.log-in-form(action="/log-in", method="post") 
+      label(for="userName") Email
+      input#user-name(type="email", name="userName")
+      label(for="password") Password
+      input#password(type="password", name="password")
+      button.log-in-submit(type="submit") Log me in!
+  
+  .log-in-footer 
+    a(href="/") Home 

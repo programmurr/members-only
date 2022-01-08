@@ -18,6 +18,11 @@ block content
       label(for="confirmPassword") Confirm Password
       input#confirm-password(type="password", name="confirmPassword")
       button.sign-in-submit(type="submit") Sign me up!
+
+  if errors 
+    each error in errors 
+      ul.errors 
+        li.error!=error.msg
   
   .sign-up-footer 
     a(href="/") Home 

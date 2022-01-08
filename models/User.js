@@ -21,7 +21,7 @@ const userSchema = new Schema({
     required: true,
     trim: true,
     minlength: 7,
-    maxlength: 40,
+    maxlength: 60,
   },
   password: {
     type: String,
@@ -30,6 +30,7 @@ const userSchema = new Schema({
     maxlength: 50,
   },
   memberStatus: {
+    required: true,
     type: Boolean,
     default: false,
   },
@@ -43,6 +44,10 @@ const userSchema = new Schema({
 
 userSchema.virtual("url").get(function () {
   return `/user/${this._id}`;
+});
+
+userSchema.virtual("fullName").get(function () {
+  return this.firstName + this.lastName;
 });
 
 module.exports = mongoose.model("User", userSchema);
