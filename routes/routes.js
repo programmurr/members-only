@@ -15,7 +15,7 @@ router.get("/sign-up", function (req, res) {
 router.post("/sign-up", userController.user_create_post);
 
 router.get("/log-in", function (req, res) {
-  res.render("logIn", { page: "Log In" });
+  res.render("logIn", { page: "Log In", message: req.flash("error") });
 });
 
 router.post(
@@ -23,6 +23,7 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/log-in",
+    failureFlash: true,
   })
 );
 

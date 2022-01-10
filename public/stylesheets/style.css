@@ -5,40 +5,47 @@
 }
 
 html {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
 }
 
 body {
+  width: 1000px;
   max-width: 1000px;
   display: grid;
-  grid-template-columns: repeat(5, minmax(200px, 1fr));
-  grid-template-rows: repeat(5, minmax(200px, 1fr));
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  grid-template-rows: repeat(5, minmax(150px, 1fr));
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.errors {
+  grid-column: 2 / 5;
+}
+
+.error {
+  color: red;
 }
 
 /* =================================== */
 /* NAVBAR */
 /* =================================== */
 .navbar {
-  margin-top: 3%;
+  padding: 10px;
   grid-column: 2 / 5;
-  grid-row: 1 / 2;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
+  place-self: start stretch;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .nav-header {
-  place-self: start center;
+  width: 50%;
 }
 
 .nav-links {
-  grid-column: 3 / 4;
-  place-self: start stretch;
   display: flex;
+  width: 50%;
   justify-content: space-between;
 }
 /* =================================== */
@@ -52,7 +59,7 @@ body {
 }
 
 /* =================================== */
-/* SIGN UP PAGE */
+/* SIGN UP/LOG IN PAGE */
 /* =================================== */
 
 .sign-up-welcome-container,
@@ -103,8 +110,4 @@ body {
   grid-row: 4 / 5;
   justify-self: center;
   margin-top: 20px;
-}
-
-.error {
-  color: red;
 }

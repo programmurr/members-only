@@ -1,10 +1,17 @@
 extends layout
 
 block content
+  .navbar
+    h2.nav-header Members Only 
+    if currentUser
+      .nav-links
+        p #{currentUser.userName}
+        a(href="/log-out") Log out 
+    else
+      .nav-links
+        a(href="/sign-up") Sign Up
+        a(href="/log-in") Log In
 
-  if user 
-    p Welcome back #{user.userName}
-    a(href="/log-out") Log out 
 
   if messages 
     .messages-container
