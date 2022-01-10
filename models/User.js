@@ -27,7 +27,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 12,
-    maxlength: 50,
   },
   memberStatus: {
     required: true,

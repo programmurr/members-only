@@ -1,6 +1,7 @@
 const User = require("../models/User");
 
 const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
 
 function passwordsMatch(value, { req }) {
   if (value !== req.body.password) {
@@ -28,33 +29,38 @@ exports.user_create_post = [
     .withMessage("Password must contain one number"),
   body("confirmPassword").custom(passwordsMatch),
   async (req, res, next) => {
-    const errors = validationResult(req);
-    const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      userName: req.body.userName,
-      password: req.body.password,
-      memberStatus: false,
-      messages: [],
-    });
-    if (!errors.isEmpty()) {
-      return res.render("signUp", { user, errors: errors.array() });
-    } else {
-      try {
-        const foundUser = await User.findOne({
-          userName: req.body.userName,
-        }).exec();
-        if (foundUser) {
-          return res.render("signUp", {
-            errors: [{ msg: "User already exists" }],
-          });
-        } else {
-          await user.save();
-          return res.redirect("/");
-        }
-      } catch (error) {
-        return next(error);
+    bcrypt.hash(req.body.password, 10, async (hashError, hashedPassword) => {
+      if (hashError) {
+        return next(hashError);
       }
-    }
+      const errors = validationResult(req);
+      const user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        userName: req.body.userName,
+        password: hashedPassword,
+        memberStatus: false,
+        messages: [],
+      });
+      if (!errors.isEmpty()) {
+        return res.render("signUp", { user, errors: errors.array() });
+      } else {
+        try {
+          const foundUser = await User.findOne({
+            userName: req.body.userName,
+          }).exec();
+          if (foundUser) {
+            return res.render("signUp", {
+              errors: [{ msg: "User already exists" }],
+            });
+          } else {
+            await user.save();
+            return res.redirect("/");
+          }
+        } catch (error) {
+          return next(error);
+        }
+      }
+    });
   },
 ];
