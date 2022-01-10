@@ -64,3 +64,30 @@ exports.user_create_post = [
     });
   },
 ];
+
+exports.user_update_membership_post = async function (req, res, next) {
+  if (req.body.clubPassword === process.env.MEMBER_PASSWORD) {
+    const { _id, firstName, lastName, userName, password, messages } =
+      res.locals.currentUser;
+    try {
+      const updatedUser = new User({
+        _id,
+        firstName,
+        lastName,
+        userName,
+        password,
+        memberStatus: true,
+        messages,
+      });
+      await User.findByIdAndUpdate(_id, updatedUser, {}).exec();
+      res.redirect("/");
+    } catch (error) {
+      return next(error);
+    }
+  } else {
+    res.render("joinClub", {
+      page: "Join the Club",
+      errors: [{ msg: "Incorrect membership password" }],
+    });
+  }
+};

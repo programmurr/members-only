@@ -4,9 +4,17 @@ block content
   .navbar
     h2.nav-header Members Only 
     if currentUser
-      .nav-links
-        p #{currentUser.userName}
-        a(href="/log-out") Log out 
+      if currentUser.memberStatus === true
+        .nav-links
+          p #{currentUser.userName}
+          a(href="/create-message") Create message 
+          a(href="/log-out") Log out 
+      else
+        .nav-links
+          p #{currentUser.userName}
+          a(href="/join-club") Join the club! 
+          a(href="/log-out") Log out 
+
     else
       .nav-links
         a(href="/sign-up") Sign Up

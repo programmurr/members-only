@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+
+  h2.join-club-header= page
+
+  form.secret-container(action="", method="post")
+    label(for="clubPassword") Type the club password here:
+    input#club-password(type="password", name="clubPassword") 
+    button(type="submit") Submit 
+
+  .home-footer 
+    a(href="/") Home 
+  
+  .errors 
+    if errors
+      each error in errors 
+        p.error!=error.msg
