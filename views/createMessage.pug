@@ -2,5 +2,16 @@ extends layout
 
 block content 
 
-  h2= page
-  p Take it from here
+  .write-message-welcome
+    h2= page
+  
+  .message-form-container
+    form.message-form(action="", method="post")
+      label(for="title") Message Title
+      input#message-title(type="text", name="title")
+      label(for="body") Message Body 
+      textarea#message-body(name="body", cols="30", rows="10")   
+      button(type="submit") Submit Message
+
+  .message-footer
+    a(href="/") Home 

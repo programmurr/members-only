@@ -4,6 +4,7 @@ const passport = require("passport");
 require("dotenv").config();
 
 const userController = require("../controllers/userController");
+const messageController = require("../controllers/messageController");
 
 router.get("/", (req, res) => {
   res.render("index", { page: "Members Only", user: req.user });
@@ -16,7 +17,7 @@ router.get("/sign-up", (req, res) => {
 
 router.post("/sign-up", userController.user_create_post);
 
-//LOG IN ROUTES
+// LOG IN ROUTES
 router.get("/log-in", (req, res) => {
   res.render("logIn", { page: "Log In", message: req.flash("error") });
 });
@@ -54,5 +55,7 @@ router.post("/join-club", userController.user_update_membership_post);
 router.get("/create-message", (req, res) => {
   res.render("createMessage", { page: "Write a Message" });
 });
+
+router.post("/create-message", messageController.message_create_post);
 
 module.exports = router;
