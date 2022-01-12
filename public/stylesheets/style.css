@@ -89,7 +89,8 @@ body {
 }
 
 .sign-in-submit,
-.log-in-submit {
+.log-in-submit,
+.create-message-button {
   background: rgb(0, 132, 255);
   border: none;
   border-radius: 10px;
@@ -99,7 +100,8 @@ body {
 }
 
 .sign-in-submit:hover,
-.log-in-submit:hover {
+.log-in-submit:hover,
+.create-message-button:hover {
   cursor: pointer;
   font-weight: 600;
 }

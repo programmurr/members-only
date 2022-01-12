@@ -8,7 +8,7 @@ const messageSchema = new Schema({
     required: true,
     trim: true,
     minlength: 3,
-    maxlength: 24,
+    maxlength: 100,
   },
   timestamp: {
     type: Date,
@@ -19,7 +19,7 @@ const messageSchema = new Schema({
     required: true,
     trim: true,
     minlength: 1,
-    maxlength: 500,
+    maxlength: 600,
   },
   author: {
     type: Schema.Types.ObjectId,

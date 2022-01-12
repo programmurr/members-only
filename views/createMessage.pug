@@ -8,10 +8,15 @@ block content
   .message-form-container
     form.message-form(action="", method="post")
       label(for="title") Message Title
-      input#message-title(type="text", name="title")
+      input#message-title(type="text", name="title" value=(message ? message.title : '' ))
       label(for="body") Message Body 
-      textarea#message-body(name="body", cols="30", rows="10")   
-      button(type="submit") Submit Message
+      textarea#message-body(name="body", cols="30", rows="10") #{message ? message.body : ''}   
+      button.create-message-button(type="submit") Submit Message
 
   .message-footer
     a(href="/") Home 
+
+  ul.errors 
+    if errors 
+      each error in errors 
+        li.error!=error.msg
