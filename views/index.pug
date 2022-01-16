@@ -23,6 +23,7 @@ block content
   if messages 
     each message in messages 
       .message
+        p.message-title #{message.title}
         p.message-body #{message.body}
         if currentUser && currentUser.memberStatus === true
           .message-info

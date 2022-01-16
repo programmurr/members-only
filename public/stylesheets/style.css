@@ -69,6 +69,11 @@ body {
   font-size: 0.95rem;
 }
 
+.message-title {
+  font-weight: 600;
+  padding-bottom: 5px;
+}
+
 .message-info {
   align-self: flex-end;
   width: 50%;

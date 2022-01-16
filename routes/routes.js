@@ -19,7 +19,8 @@ router.post("/sign-up", userController.user_create_post);
 
 // LOG IN ROUTES
 router.get("/log-in", (req, res) => {
-  return res.render("logIn", { page: "Log In", message: req.flash("error") });
+  res.render("logIn", { page: "Log In", message: req.flash("error") });
+  return;
 });
 
 router.post(
