@@ -3,6 +3,21 @@ const User = require("../models/User");
 
 const { body, validationResult } = require("express-validator");
 
+exports.all_messages_get = async function (req, res, next) {
+  try {
+    const allMessages = await Message.find()
+      .populate("author")
+      .sort({ timestamp: -1 })
+      .exec();
+    return res.render("index", {
+      page: "Members Only",
+      messages: allMessages,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 exports.message_create_post = [
   body("title", "Message title is required")
     .trim()
@@ -25,7 +40,7 @@ exports.message_create_post = [
       author: currentUser._id,
     });
     if (!errors.isEmpty()) {
-      res.render("createMessage", {
+      return res.render("createMessage", {
         page: "Write a Message",
         message: { title, body },
         errors: errors.array(),
@@ -35,10 +50,32 @@ exports.message_create_post = [
         await newMessage.save();
         currentUser.messages.push(newMessage._id);
         await User.findByIdAndUpdate(currentUser._id, currentUser).exec();
-        res.redirect("/");
+        return res.redirect("/");
       } catch (error) {
         return next(error);
       }
     }
   },
 ];
+
+exports.message_delete_post = async function (req, res, next) {
+  const message = JSON.parse(req.body.message);
+  if (res.locals.currentUser.isAdmin) {
+    try {
+      await Message.findByIdAndDelete(message._id).exec();
+      const author = await User.findById(message.author)
+        .populate("messages")
+        .exec();
+      const updatedMessages = author.messages.filter(
+        (authorMessage) => authorMessage._id !== message._id
+      );
+      await User.findByIdAndUpdate(author._id, {
+        messages: updatedMessages,
+      }).exec();
+      return res.redirect("/");
+    } catch (error) {
+      return next(error);
+    }
+  }
+  res.redirect("/");
+};

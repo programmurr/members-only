@@ -32,6 +32,11 @@ block content
           .message-info
             p.message-author Author unknown
             p.message-date Date unknown
+
+      if currentUser && currentUser.isAdmin === true
+        form.delete-form(action="", method="post")
+          input(type="hidden", name="message" value=message) 
+          button.delete-button(type="submit") Delete
           
   else 
     .no-messages

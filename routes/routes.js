@@ -5,34 +5,21 @@ require("dotenv").config();
 
 const userController = require("../controllers/userController");
 const messageController = require("../controllers/messageController");
-// const User = require("../models/User");
-const Message = require("../models/Message");
 
-router.get("/", async (req, res, next) => {
-  try {
-    const allMessages = await Message.find()
-      .populate("author")
-      .sort({ timestamp: -1 })
-      .exec();
-    res.render("index", {
-      page: "Members Only",
-      messages: allMessages,
-    });
-  } catch (error) {
-    return next(error);
-  }
-});
+// HOME PAGE ROUTES
+router.get("/", messageController.all_messages_get);
+router.post("/", messageController.message_delete_post);
 
 // SIGN UP ROUTES
 router.get("/sign-up", (req, res) => {
-  res.render("signUp", { page: "Sign Up" });
+  return res.render("signUp", { page: "Sign Up" });
 });
 
 router.post("/sign-up", userController.user_create_post);
 
 // LOG IN ROUTES
 router.get("/log-in", (req, res) => {
-  res.render("logIn", { page: "Log In", message: req.flash("error") });
+  return res.render("logIn", { page: "Log In", message: req.flash("error") });
 });
 
 router.post(
@@ -47,15 +34,16 @@ router.post(
 router.get("/log-out", (req, res) => {
   req.logOut();
   res.redirect("/");
+  return;
 });
 
 // JOIN UP ROUTES
 router.get("/join-club", (req, res, next) => {
   try {
     if (res.locals.currentUser.memberStatus) {
-      res.redirect("/");
+      return res.redirect("/");
     } else {
-      res.render("joinClub", { page: "Join the Club" });
+      return res.render("joinClub", { page: "Join the Club" });
     }
   } catch (error) {
     return next(error);
@@ -64,9 +52,9 @@ router.get("/join-club", (req, res, next) => {
 
 router.post("/join-club", userController.user_update_membership_post);
 
-// CREATE MESSAGE ROUTES
+// MESSAGE ROUTES
 router.get("/create-message", (req, res) => {
-  res.render("createMessage", { page: "Write a Message" });
+  return res.render("createMessage", { page: "Write a Message" });
 });
 
 router.post("/create-message", messageController.message_create_post);

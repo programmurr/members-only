@@ -77,6 +77,25 @@ body {
   font-size: 0.85rem;
 }
 
+.delete-form {
+  grid-column: 5 / 6;
+  place-self: center;
+}
+
+.delete-button {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(255, 0, 0);
+  color: white;
+  padding: 5px 10px;
+  font-weight: 400;
+}
+
+.delete-button:hover {
+  text-shadow: 0px 0px 1px white;
+  cursor: pointer;
+}
+
 /* =================================== */
 /* SIGN UP/LOG IN PAGE */
 /* =================================== */

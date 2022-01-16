@@ -43,16 +43,18 @@ exports.user_create_post = [
         messages: [],
       });
       if (!errors.isEmpty()) {
-        return res.render("signUp", { user, errors: errors.array() });
+        res.render("signUp", { user, errors: errors.array() });
+        return;
       } else {
         try {
           const foundUser = await User.findOne({
             userName: req.body.userName,
           }).exec();
           if (foundUser) {
-            return res.render("signUp", {
+            res.render("signUp", {
               errors: [{ msg: "User already exists" }],
             });
+            return;
           } else {
             await user.save();
             return res.redirect("/");
@@ -80,16 +82,15 @@ exports.user_update_membership_post = async function (req, res, next) {
         messages,
       });
       if (req.body.isAdmin === "on") {
-        console.log("An admin!");
         updatedUser.isAdmin = true;
       }
       await User.findByIdAndUpdate(_id, updatedUser, {}).exec();
-      res.redirect("/");
+      return res.redirect("/");
     } catch (error) {
       return next(error);
     }
   } else {
-    res.render("joinClub", {
+    return res.render("joinClub", {
       page: "Join the Club",
       errors: [{ msg: "Incorrect membership password" }],
     });
