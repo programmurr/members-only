@@ -79,6 +79,10 @@ exports.user_update_membership_post = async function (req, res, next) {
         memberStatus: true,
         messages,
       });
+      if (req.body.isAdmin === "on") {
+        console.log("An admin!");
+        updatedUser.isAdmin = true;
+      }
       await User.findByIdAndUpdate(_id, updatedUser, {}).exec();
       res.redirect("/");
     } catch (error) {

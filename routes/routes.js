@@ -5,9 +5,22 @@ require("dotenv").config();
 
 const userController = require("../controllers/userController");
 const messageController = require("../controllers/messageController");
+// const User = require("../models/User");
+const Message = require("../models/Message");
 
-router.get("/", (req, res) => {
-  res.render("index", { page: "Members Only", user: req.user });
+router.get("/", async (req, res, next) => {
+  try {
+    const allMessages = await Message.find()
+      .populate("author")
+      .sort({ timestamp: -1 })
+      .exec();
+    res.render("index", {
+      page: "Members Only",
+      messages: allMessages,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
 // SIGN UP ROUTES

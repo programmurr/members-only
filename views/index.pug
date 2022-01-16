@@ -20,12 +20,19 @@ block content
         a(href="/sign-up") Sign Up
         a(href="/log-in") Log In
 
-
   if messages 
-    .messages-container
     each message in messages 
-      .message-container
-      p #{message.body}
+      .message
+        p.message-body #{message.body}
+        if currentUser && currentUser.memberStatus === true
+          .message-info
+            p.message-author #{message.author.fullName}
+            p.message-date #{message.date}
+        else 
+          .message-info
+            p.message-author Author unknown
+            p.message-date Date unknown
+          
   else 
     .no-messages
       p There are no messages

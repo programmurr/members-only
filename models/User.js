@@ -33,6 +33,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   messages: [
     {
       type: Schema.Types.ObjectId,
@@ -46,7 +50,7 @@ userSchema.virtual("url").get(function () {
 });
 
 userSchema.virtual("fullName").get(function () {
-  return this.firstName + this.lastName;
+  return this.firstName + " " + this.lastName;
 });
 
 module.exports = mongoose.model("User", userSchema);

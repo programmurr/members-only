@@ -7,6 +7,9 @@ block content
   form.secret-container(action="", method="post")
     label(for="clubPassword") Type the club password here:
     input#club-password(type="password", name="clubPassword") 
+    .admin-container
+      label(for="isAdmin") Is admin:
+      input#is-admin(type="checkbox", name="isAdmin") 
     button(type="submit") Submit 
 
   .home-footer 
