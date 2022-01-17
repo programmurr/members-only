@@ -4,20 +4,24 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const flash = require("connect-flash");
-const session = require("express-session");
+const session = require("cookie-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+const compression = require("compression");
+const helmet = require("helmet");
 require("dotenv").config();
 
 const routes = require("./routes/routes");
 const User = require("./models/User");
 
 const app = express();
+app.use(compression());
+app.use(helmet());
 
 // DATABASE SETUP
 const mongoose = require("mongoose");
-const mongoDBUrl = process.env.MEMBERS_DEV_URL;
+const mongoDBUrl = process.env.MEMBERS_PROD_URL || process.env.MEMBERS_DEV_URL;
 mongoose.connect(mongoDBUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error: "));
@@ -28,9 +32,9 @@ app.set("view engine", "pug");
 
 app.use(
   session({
+    name: "MemberSession",
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
+    maxAge: 24 * 60 * 60 * 1000,
   })
 );
 app.use(logger("dev"));

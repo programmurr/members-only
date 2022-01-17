@@ -2,6 +2,7 @@ const Message = require("../models/Message");
 const User = require("../models/User");
 
 const { body, validationResult } = require("express-validator");
+const debug = require("debug")("message");
 
 exports.all_messages_get = async function (req, res, next) {
   try {
@@ -14,6 +15,7 @@ exports.all_messages_get = async function (req, res, next) {
       messages: allMessages,
     });
   } catch (error) {
+    debug("Error getting all messages: " + error);
     return next(error);
   }
 };
@@ -52,6 +54,7 @@ exports.message_create_post = [
         await User.findByIdAndUpdate(currentUser._id, currentUser).exec();
         return res.redirect("/");
       } catch (error) {
+        debug("Error posting message: " + error);
         return next(error);
       }
     }
@@ -74,6 +77,7 @@ exports.message_delete_post = async function (req, res, next) {
       }).exec();
       return res.redirect("/");
     } catch (error) {
+      debug("Error deleting message: " + error);
       return next(error);
     }
   }

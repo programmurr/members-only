@@ -2,6 +2,7 @@ const User = require("../models/User");
 
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const debug = require("debug")("user");
 
 function passwordsMatch(value, { req }) {
   if (value !== req.body.password) {
@@ -60,6 +61,7 @@ exports.user_create_post = [
             return res.redirect("/");
           }
         } catch (error) {
+          debug("Error creating user: " + error);
           return next(error);
         }
       }
@@ -87,6 +89,7 @@ exports.user_update_membership_post = async function (req, res, next) {
       await User.findByIdAndUpdate(_id, updatedUser, {}).exec();
       return res.redirect("/");
     } catch (error) {
+      debug("Error updating user membership: " + error);
       return next(error);
     }
   } else {

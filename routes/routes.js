@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const passport = require("passport");
+const debug = require("debug")("user");
 require("dotenv").config();
 
 const userController = require("../controllers/userController");
@@ -47,6 +48,7 @@ router.get("/join-club", (req, res, next) => {
       return res.render("joinClub", { page: "Join the Club" });
     }
   } catch (error) {
+    debug("Error getting join club page: " + error);
     return next(error);
   }
 });
