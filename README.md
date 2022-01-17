@@ -17,4 +17,4 @@ An assignment from [The Odin Project](https://www.theodinproject.com/paths/full-
 
 ## Status
 
-In development. When it's ready, view the production site on [Heroku](https://www.heroku.com/).
+Deployed! View the production site on [Heroku](https://members-only-js.herokuapp.com).
